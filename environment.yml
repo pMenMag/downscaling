@@ -1,0 +1,26 @@
+name: downscalingproj
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  # data access and format
+  - cfgrib
+  - netcdf4
+  - cdsapi
+  - zarr
+  # processing
+  - dask
+  - numpy
+  - xarray
+  - pandas
+  - xesmf
+  # data visualization
+  - matplotlib
+  - cartopy
+  # remote Zarr access (Earth Data Hub over HTTPS)
+  - aiohttp
+  - fsspec
+  # development
+  - ruff
+  - pytest
+
