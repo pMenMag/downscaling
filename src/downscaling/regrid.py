@@ -68,7 +68,7 @@ def check_coverage(ds: xr.Dataset, regridder: xe.Regridder) -> None:
     the data (e.g. sst being NaN over land) nor on the name of the time dimension.
     """
     da = ds[next(iter(ds.data_vars))]
-    field = da.isel({dim: 0 for dim in da.dims[:-2]}, drop=True) 
+    field = da.isel({dim: 0 for dim in da.dims[:-2]}, drop=True)
     n_nan = int(regridder(xr.ones_like(field, dtype=float)).isnull().sum())
     if n_nan:
         raise ValueError(f"{n_nan} target points have no source data. Widen the source region.")

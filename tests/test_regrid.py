@@ -7,7 +7,7 @@ xe = pytest.importorskip("xesmf")
 
 from downscaling.regrid import build_regridder, regrid, weights_path  # noqa: E402
 
-SOURCE_LAT = np.arange(44.0, 37.75, -0.25)  
+SOURCE_LAT = np.arange(44.0, 37.75, -0.25)
 SOURCE_LON = np.arange(-1.5, 5.0, 0.25)
 TIMES = pd.date_range("2003-01-01", periods=2, freq="D")
 
@@ -37,6 +37,7 @@ def target_grid(lon0: float = 0.0, lat0: float = 39.5, n: int = 6) -> xr.Dataset
 def linear(lon, lat):
     return 2.0 + lon + 0.5 * lat
 
+
 def test_linear_field_is_reproduced():
     ds = source_dataset(t2m=linear)
     target = target_grid()
@@ -45,6 +46,7 @@ def test_linear_field_is_reproduced():
     expected = linear(target["longitude"], target["latitude"])
     for i in range(len(TIMES)):
         np.testing.assert_allclose(out["t2m"].isel(valid_time=i), expected, atol=0.05)
+
 
 def test_target_outside_source_raises():
     ds = source_dataset(t2m=linear)
@@ -65,10 +67,10 @@ def test_sst_land_mask_does_not_spread():
     coast = (lon > 0.75) & (lon < 1.0)  # between a land and a sea source column
     assert coast.any()
 
-    # Plain bilinear regridding turns the coastal sea points into NaN 
+    # Plain bilinear regridding turns the coastal sea points into NaN
     plain = regridder(ds[["sst"]])["sst"].isel(valid_time=0)
     assert plain.isnull().where(coast, True).all()
-    # regrid() keeps a value there, using the valid neighbours only 
+    # regrid() keeps a value there, using the valid neighbours only
     assert sst.notnull().where(lon > 0.75, True).all()
     # and points with only land around them stay NaN.
     assert sst.isnull().where(lon < 0.75, True).all()

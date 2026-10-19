@@ -6,7 +6,7 @@ from downscaling.io import write_to_zarr
 
 CHUNKS = {"valid_time": 24, "latitude": 3, "longitude": 4}
 
- 
+
 @pytest.fixture
 def small_ds():
     rng = np.random.default_rng(0)
@@ -19,12 +19,13 @@ def small_ds():
         },
     )
 
+
 def test_failed_write(small_ds, tmp_path, monkeypatch):
     out = tmp_path / "out.zarr"
     write_to_zarr(small_ds, out, CHUNKS)
 
     def fail(self, store, *args, **kwargs):
-        store.mkdir()                                 
+        store.mkdir()
         (store / "partial_store").write_text("incomplete")
         raise RuntimeError("simulated interruption")
 

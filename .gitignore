@@ -14,7 +14,7 @@ htmlcov/
  
  
 # Data and generated outputs 
-data/
+/data/
 *.zarr/
 *.nc
 *.grib
