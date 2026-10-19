@@ -42,7 +42,7 @@ OUT_DIR = ROOT / "data" / "era5_on_cerra"
 WEIGHTS_DIR = ROOT / "data" / "weights"
 
 METHOD = "bilinear"
-NAN_VARS = ("sst",)  
+NAN_VARS = ("sst",)
 OUTPUT_CHUNKS = {"time": 31, "y": -1, "x": -1}
 
 
