@@ -7,11 +7,11 @@ dependencies:
   - cfgrib
   - netcdf4
   - cdsapi
-  - zarr
+  - zarr>=3
   # processing
   - dask
   - numpy
-  - xarray
+  - xarray>=2025.1
   - pandas
   - xesmf
   # data visualization
